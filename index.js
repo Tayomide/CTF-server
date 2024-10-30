@@ -1,12 +1,11 @@
 const express = require('express');
-const cors = require('cors');
 const app = express();
 const port = 3000;
 
 const tempHeaders = (req, res, next) => {
-  if (req.headers.origin === 'https://matrix-simplified.capturetheflags.site') {
+  if (req.headers.origin === 'https://matrix-simplified.capturetheflags.site' || !req.headers?.origin) {
     // Set the access-control-allow-origin header to every origin in allowedOrigins later (instead of just one)
-    res.header('Access-Control-Allow-Origin', req.headers.origin)
+    res.header('Access-Control-Allow-Origin', 'https://matrix-simplified.capturetheflags.site')
     res.header('Access-Control-Allow-Credentials', 'true')
   } else {
     res.header('Access-Control-Allow-Origin', '*')
