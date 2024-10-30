@@ -4,7 +4,6 @@ const port = 3000;
 
 const tempHeaders = (req, res, next) => {
   if (req.headers.origin === 'https://matrix-simplified.capturetheflags.site' || !req.headers?.origin) {
-    // Set the access-control-allow-origin header to every origin in allowedOrigins later (instead of just one)
     res.header('Access-Control-Allow-Origin', 'https://matrix-simplified.capturetheflags.site')
     res.header('Access-Control-Allow-Credentials', 'true')
   } else {
@@ -19,7 +18,6 @@ app.use(tempHeaders);
 // Middleware to log the request
 app.use((req, res, next) => {
   console.log(req.headers.origin, req.headers.cookie)
-  console.log('Request:', req.headers, req.method, req.url, req.statusCode, JSON.stringify(req.body), JSON.stringify(req.query));
   next(); // Pass the request to the next handler
 });
 
