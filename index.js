@@ -1,6 +1,12 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const port = 3000;
+
+app.use(cors({
+  origin: 'https://matrix-simplified.capturetheflags.site/', // Replace with your Flask server's URL
+  credentials: true,  // Allow credentials (cookies) to be sent
+}));
 
 // Middleware to log the request
 app.use((req, res, next) => {
