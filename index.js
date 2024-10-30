@@ -4,7 +4,7 @@ const port = 3000;
 
 // Middleware to log the request
 app.use((req, res, next) => {
-  console.log('Request:', req.method, req.url, req.statusCode, JSON.stringify(req.body), JSON.stringify(req.query));
+  console.log('Request:', req.headers, req.method, req.url, req.statusCode, JSON.stringify(req.body), JSON.stringify(req.query));
   next(); // Pass the request to the next handler
 });
 
