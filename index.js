@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-const tempHeaders = (req, res, next) => {
+const tempHeaders = (req, res) => {
   if (req.headers.origin === 'https://matrix-simplified.capturetheflags.site' || !req.headers?.origin) {
     res.header('Access-Control-Allow-Origin', 'https://matrix-simplified.capturetheflags.site')
     res.header('Access-Control-Allow-Credentials', 'true')
@@ -11,9 +11,15 @@ const tempHeaders = (req, res, next) => {
   }
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, credentials')
-  next()
 }
-app.use(tempHeaders);
+app.options('*', (req, res) => {
+  tempHeaders(req, res)
+  res.sendStatus(200)
+})
+app.use((req, res, next) => {
+  tempHeaders(req, res)
+  next()
+});
 
 // Middleware to log the request
 app.use((req, res, next) => {
